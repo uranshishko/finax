@@ -1,4 +1,5 @@
 const path = require('path');
+const { existsSync } = require('fs');
 
 const packager = require('electron-packager');
 
@@ -16,8 +17,14 @@ async function Build(options) {
 }
 
 (async () => {
+    const outDirExists = existsSync(outDir);
+
+    if (!outDirExists) {
+        throw new Error('Out directory path provided does not exist');
+    }
+
     await Build({
-        icon: path.join(__dirname, 'render', 'resources', 'logo', 'Finax-logo.ico'),
+        icon: path.join(__dirname, 'render', 'resources', 'logo', 'Finax_logo' + (platform.includes('win') ? '.ico' : 'png')),
         name: 'Finax',
         out: outDir,
         dir: path.join(__dirname, '..'),

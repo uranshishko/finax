@@ -1,7 +1,7 @@
 {
     "name": "finax",
     "version": "1.0.0",
-    "description": "Finance and accounting app",
+    "description": "Finance and billing app",
     "main": "./src/main.js",
     "scripts": {
         "test": "electron .",
