@@ -1,4 +1,4 @@
-<img src="./render/resources/logo/Finax_logo.png" width="250" alt="finax logo">
+<img src="./src/render/resources/logo/Finax_logo.png" width="250" alt="finax logo">
 
 # Finance and billing app for desktops
 
