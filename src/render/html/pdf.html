@@ -83,7 +83,11 @@
                             <p v-if="organization.email">E-mail: {{organization.email}}</p>
                             <p v-if="organization.phone">Phone: {{organization.phone}}</p>
                         </div>
-                        <!-- <div></div> -->
+                        <div>
+                            <p v-if="organization.bank">Bank: {{organization.bank}}</p>
+                            <p v-if="organization.accountType">Account type: {{organization.accountType}}</p>
+                            <p v-if="organization.accountNumber">{{organization.accountNumber}}</p>
+                        </div>
                     </div>
                 </footer>
             </div>
