@@ -1,0 +1,149 @@
+.settings_container {
+  padding: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow-y: scroll;
+}
+
+.settings_container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.settings_container .warn_message {
+  color: #6b6420;
+  text-align: center;
+  border: 2px solid #ffe600;
+  font-size: 20px;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #ffe60071;
+  margin: 10px 0px 40px 0px;
+}
+
+.settings_container .all_settings {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.settings_container .all_settings .settings_menu {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.settings_container .all_settings .settings_menu .settings_header {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px;
+  background-color: #eee;
+  height: 60px;
+  border-bottom: 1px solid #ccc;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.settings_container .all_settings .settings_menu .settings_header h2 {
+  margin-left: 5px;
+}
+
+.settings_container .all_settings .settings_menu .settings_header .menu_toggler {
+  font-size: 20px;
+  padding: 10px 15px;
+  margin-top: -5px;
+}
+
+.settings_container .all_settings .settings_menu .settings_header .menu_toggler_rotate {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  margin-top: 15px;
+}
+
+.settings_container .all_settings .settings_menu .settings {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.settings_container .all_settings .settings_menu .settings label {
+  margin: 5px;
+}
+
+.settings_container .all_settings .settings_menu .settings label input {
+  font-size: 20px !important;
+  min-width: 50%;
+}
+
+.settings_container .all_settings .settings_menu .settings label[for='logo'] {
+  border: 2px solid #ccc;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  padding: 70px 20px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  color: #999;
+  width: 150px;
+  height: 100px;
+  text-align: center;
+}
+
+.settings_container .all_settings .settings_menu .settings label[for='logo'] input {
+  display: none;
+}
+
+.settings_container .all_settings .settings_menu .settings button {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin: 5px;
+}
+
+.settings_container .all_settings .settings_menu .general {
+  height: 300px;
+}
+
+.settings_container .all_settings .settings_menu .general textarea {
+  width: 50%;
+  resize: none !important;
+}
+
+.settings_container .all_settings .settings_menu .organization {
+  height: 900px;
+}
+
+.settings_container .all_settings .settings_menu .hide_settings {
+  margin-top: 0px;
+  height: 0;
+}
+/*# sourceMappingURL=settings.css.map */

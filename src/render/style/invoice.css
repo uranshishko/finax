@@ -1,0 +1,187 @@
+.invoice_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 40px;
+  overflow-y: scroll;
+}
+
+.invoice_container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.invoice_container .invoice_details {
+  width: 100%;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.invoice_container .invoice_details div {
+  width: 50%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.invoice_container .invoice_details div label {
+  width: 40%;
+  margin: 10px;
+}
+
+.invoice_container .invoice_details div label input {
+  width: 100%;
+}
+
+.invoice_container .invoice_details div label select {
+  width: 100%;
+}
+
+.invoice_container .invoice_rows {
+  width: 100%;
+}
+
+.invoice_container .invoice_rows table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+}
+
+.invoice_container .invoice_rows table .header {
+  background-color: #eee;
+  height: 50px;
+}
+
+.invoice_container .invoice_rows table tr {
+  border-bottom: 1px solid #ccc;
+  height: 60px;
+}
+
+.invoice_container .invoice_rows table tr th,
+.invoice_container .invoice_rows table tr td {
+  padding: 10px;
+  text-align: left;
+}
+
+.invoice_container .invoice_rows table tr td input {
+  width: 50%;
+  height: 34px;
+}
+
+.invoice_container .invoice_rows table tr td select {
+  width: 50px;
+}
+
+.invoice_container .invoice_rows table tr td textarea {
+  height: 34px;
+  width: 100%;
+}
+
+.invoice_container .invoice_rows table tr td .fa-trash-alt {
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.invoice_container .invoice_rows table tr td .fa-trash-alt:hover {
+  color: #999;
+}
+
+.invoice_container .invoice_rows button {
+  margin-top: 20px;
+}
+
+.invoice_container .invoice_finalize {
+  width: 100%;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.invoice_container .invoice_finalize div {
+  width: 50%;
+}
+
+.invoice_container .invoice_finalize .invoice_finalize-note textarea {
+  width: 80%;
+}
+
+.invoice_container .invoice_finalize .invoice_finalize-totals {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.invoice_container .invoice_finalize .invoice_finalize-totals table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.invoice_container .invoice_finalize .invoice_finalize-totals table th,
+.invoice_container .invoice_finalize .invoice_finalize-totals table td {
+  padding: 20px;
+  text-align: right;
+}
+
+.invoice_container .bottom_bar {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+  height: 80px;
+  width: 390px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.invoice_container .bottom_bar button {
+  font-size: 16px;
+  -webkit-box-shadow: 2px 2px 4px #666;
+          box-shadow: 2px 2px 4px #666;
+  margin: 5px;
+}
+
+.invoice_container .bottom_bar .save_to_pdf {
+  background-color: #e7e7e7 !important;
+  color: #333 !important;
+}
+
+.invoice_container .bottom_bar .save_to_pdf:hover {
+  background-color: #ffffff !important;
+}
+
+.invoice_container .bottom_bar .delete_invoice {
+  background-color: #e05555 !important;
+}
+
+.invoice_container .bottom_bar .delete_invoice:hover {
+  background-color: #ff8a8a !important;
+}
+/*# sourceMappingURL=invoice.css.map */

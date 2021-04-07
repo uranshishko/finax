@@ -1,0 +1,99 @@
+.invoices_container {
+  padding: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow-y: scroll;
+}
+
+.invoices_container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.invoices_container .invoices_container-utils {
+  margin: 40px 0px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.invoices_container .invoices_container-utils .search_field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.invoices_container .invoices_container-utils .search_field input[type='text'] {
+  font-size: 18px !important;
+}
+
+.invoices_container table {
+  border-collapse: collapse;
+}
+
+.invoices_container table .header {
+  background-color: #eee;
+  height: 70px;
+}
+
+.invoices_container table tr {
+  border-bottom: 1px solid #ccc;
+  height: 90px;
+}
+
+.invoices_container table tr th,
+.invoices_container table tr td {
+  padding: 10px;
+  text-align: left;
+}
+
+.invoices_container table tr th .invoice_state,
+.invoices_container table tr td .invoice_state {
+  width: 100px !important;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 6px;
+  background-color: #eee;
+  color: #666;
+}
+
+.invoices_container table tr th .confirmed,
+.invoices_container table tr td .confirmed {
+  color: #1d3f4b;
+  border-color: lightblue;
+  background-color: #add8e631;
+}
+
+.invoices_container table tr th .payed,
+.invoices_container table tr td .payed {
+  color: #236923;
+  border-color: lightgreen;
+  background-color: rgba(144, 238, 144, 0.219);
+}
+
+.invoices_container table tr th .void,
+.invoices_container table tr td .void {
+  color: #8d291d;
+  border-color: salmon;
+  background-color: rgba(250, 128, 114, 0.199);
+}
+
+.invoices_container table tr th .overdue,
+.invoices_container table tr td .overdue {
+  color: #6b6420;
+  border-color: #ffe600;
+  background-color: #ffe60071;
+}
+/*# sourceMappingURL=invoices.css.map */

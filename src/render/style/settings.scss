@@ -1,0 +1,121 @@
+$main: #1e4063;
+$secondary: #84b2df;
+
+.settings_container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 0 !important;
+    }
+
+    .warn_message {
+        color: #6b6420;
+        text-align: center;
+        border: 2px solid #ffe600;
+        font-size: 20px;
+        border-radius: 4px;
+        padding: 20px;
+        background-color: #ffe60071;
+        margin: 10px 0px 40px 0px;
+    }
+
+    .all_settings {
+        margin-top: 30px;
+        width: 100%;
+
+        .settings_menu {
+            width: 100%;
+            margin-bottom: 5px;
+
+            .settings_header {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                background-color: #eee;
+                height: 60px;
+                border-bottom: 1px solid #ccc;
+                user-select: none;
+
+                h2 {
+                    margin-left: 5px;
+                }
+
+                .menu_toggler {
+                    font-size: 20px;
+                    padding: 10px 15px;
+                    margin-top: -5px;
+                }
+
+                .menu_toggler_rotate {
+                    transform: rotate(180deg);
+                    margin-top: 15px;
+                }
+            }
+
+            .settings {
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                transition: 0.4s;
+                border-bottom: 1px solid #ccc;
+                margin-top: 10px;
+
+                label {
+                    margin: 5px;
+
+                    input {
+                        font-size: 20px !important;
+                        min-width: 50%;
+                    }
+                }
+
+                label[for='logo'] {
+                    border: 2px solid #ccc;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    align-self: flex-start;
+                    padding: 70px 20px;
+                    border-radius: 4px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    color: #999;
+                    width: 150px;
+                    height: 100px;
+                    text-align: center;
+
+                    input {
+                        display: none;
+                    }
+                }
+
+                button {
+                    align-self: flex-start;
+                    margin: 5px;
+                }
+            }
+
+            .general {
+                height: 300px;
+
+                textarea {
+                    width: 50%;
+                    resize: none !important;
+                }
+            }
+
+            .organization {
+                height: 900px;
+            }
+
+            .hide_settings {
+                margin-top: 0px;
+                height: 0;
+            }
+        }
+    }
+}

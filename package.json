@@ -1,0 +1,24 @@
+{
+    "name": "finax",
+    "version": "1.0.0",
+    "description": "Finance and accounting app",
+    "main": "./src/main.js",
+    "scripts": {
+        "test": "electron .",
+        "build": "node ./src/builder.js"
+    },
+    "keywords": [
+        "finance",
+        "accounting",
+        "billing"
+    ],
+    "author": "Uran Shishko",
+    "license": "MIT",
+    "dependencies": {
+        "electron": "^8.2.0",
+        "nedb": "^1.8.0"
+    },
+    "devDependencies": {
+        "electron-packager": "^15.2.0"
+    }
+}

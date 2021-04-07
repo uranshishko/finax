@@ -1,0 +1,60 @@
+.clients_container {
+  padding: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow-y: scroll;
+}
+
+.clients_container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.clients_container .clients_container-utils {
+  margin: 40px 0px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.clients_container .clients_container-utils .search_field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.clients_container .clients_container-utils .search_field input[type='text'] {
+  font-size: 18px !important;
+}
+
+.clients_container table {
+  border-collapse: collapse;
+}
+
+.clients_container table .header {
+  background-color: #eee;
+  height: 70px;
+}
+
+.clients_container table tr {
+  border-bottom: 1px solid #ccc;
+  height: 90px;
+}
+
+.clients_container table tr th,
+.clients_container table tr td {
+  padding: 10px;
+  text-align: left;
+}
+/*# sourceMappingURL=clients.css.map */

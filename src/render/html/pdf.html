@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../style/pdf.css" />
+        <title>Invoice</title>
+    </head>
+    <body>
+        <div id="app">
+            <div class="toolbar" :class="{'fixed': scrolled}" v-if="!isPrinting" v-if="!isPrinting">
+                <button @click="print">Save PDF</button>
+            </div>
+            <div class="invoice" :style="moveUpInvoice">
+                <div class="invoice-header">
+                    <div class="invoice-header-logo">
+                        <img :src="organization.logo" alt="Organization Logo" width="100%" />
+                    </div>
+                    <div class="invoice-header-details">
+                        <div class="details">
+                            <h2>INVOICE</h2>
+                            <div>
+                                <div class="date">
+                                    <p>Date</p>
+                                    <p>{{invoice.date}}</p>
+                                </div>
+                                <div class="date">
+                                    <p>Invoice Number</p>
+                                    <p>{{invoice.number}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="invoice.client" class="invoice-header-client">
+                            <p>{{invoice.client.legalName}}</p>
+                            <p>{{invoice.client.address}}</p>
+                            <p>{{invoice.client.postalCode}} {{invoice.client.city}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="invoice-subdetails">
+                    <div class="payment_term">
+                        <p>Terms of payment: {{termsOfPayment}} days</p>
+                    </div>
+                    <div class="total">
+                        <p><span>Due Date:</span> <span>{{invoice.dueDate}}</span></p>
+                        <h2><span>Total:</span> <span>{{total}} {{invoice.currency.symbol}}</span></h2>
+                    </div>
+                </div>
+                <div class="invoice_rows">
+                    <table>
+                        <tr class="header">
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Sum</th>
+                        </tr>
+                        <tr v-for="(row, index) in rows" :key="index">
+                            <td>{{row.description}}</td>
+                            <td>{{row.quantity}}</td>
+                            <td>{{row.price}}</td>
+                            <td>{{row.price * row.quantity}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <footer class="footer">
+                    <div class="invoice_info">
+                        <div class="customer_note" v-html="customerNote"></div>
+                        <div class="totals">
+                            <p><span>Subtotal:</span> <span>{{subTotal}}</span></p>
+                            <p><span>Tax:</span> <span>{{tax}}</span></p>
+                            <h3><span>Total:</span> <span>{{total}}</span></h3>
+                        </div>
+                    </div>
+                    <div class="organization_info">
+                        <div>
+                            <p>Address:</p>
+                            <p>{{organization.legalName}}</p>
+                            <p>{{organization.address}}</p>
+                            <p>{{organization.postalCode}} {{organization.city}}</p>
+                        </div>
+                        <div>
+                            <p v-if="organization.email">E-mail: {{organization.email}}</p>
+                            <p v-if="organization.phone">Phone: {{organization.phone}}</p>
+                        </div>
+                        <!-- <div></div> -->
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script src="../js/vue.js"></script>
+        <script src="../js/pdf.js"></script>
+    </body>
+</html>

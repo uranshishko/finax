@@ -1,0 +1,82 @@
+$main: #1e4063;
+$secondary: #84b2df;
+
+.invoices_container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 0 !important;
+    }
+
+    .invoices_container-utils {
+        margin: 40px 0px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .search_field {
+            display: flex;
+
+            input[type='text'] {
+                font-size: 18px !important;
+            }
+        }
+    }
+
+    table {
+        border-collapse: collapse;
+
+        .header {
+            background-color: #eee;
+            height: 70px;
+        }
+
+        tr {
+            border-bottom: 1px solid #ccc;
+            height: 90px;
+
+            th,
+            td {
+                padding: 10px;
+                text-align: left;
+
+                .invoice_state {
+                    width: 100px !important;
+                    text-align: center;
+                    border: 2px solid #ccc;
+                    border-radius: 4px;
+                    padding: 6px;
+                    background-color: #eee;
+                    color: #666;
+                }
+
+                .confirmed {
+                    color: #1d3f4b;
+                    border-color: lightblue;
+                    background-color: #add8e631;
+                }
+
+                .payed {
+                    color: #236923;
+                    border-color: lightgreen;
+                    background-color: rgba(144, 238, 144, 0.219);
+                }
+
+                .void {
+                    color: rgb(141, 41, 29);
+                    border-color: salmon;
+                    background-color: rgba(250, 128, 114, 0.199);
+                }
+
+                .overdue {
+                    color: #6b6420;
+                    border-color: #ffe600;
+                    background-color: #ffe60071;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,345 @@
+@font-face {
+    font-family: Monserrat;
+    src: url(../resources/Montserrat/Montserrat-Regular.ttf);
+}
+
+$main: #1e4063;
+$secondary: #84b2df;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Monserrat, sans-serif;
+}
+
+body {
+    overflow: hidden;
+
+    .loading_wheel {
+        margin: 20px;
+        height: 100px;
+        width: 100px;
+        border: 8px solid #ccc;
+        border-top: 8px solid $main;
+        border-radius: 50%;
+        animation: loadwheel 1s infinite;
+    }
+
+    @keyframes loadwheel {
+        0% {
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+#app {
+    display: flex;
+
+    .router-link-active {
+        background-color: $secondary !important;
+        color: #fefefe !important;
+    }
+
+    .main_view {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #eee;
+        width: 100%;
+        height: 100vh;
+
+        .top_bar {
+            width: 100%;
+            height: 80px;
+            min-height: 80px;
+            max-height: 80px;
+            background-color: #fefefe;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .menu_toggler {
+                border: none;
+                background: transparent;
+                font-size: 30px;
+                padding: 10px 15px;
+                margin-left: 10px;
+                color: #999;
+                cursor: pointer;
+                transition: 0.2s;
+
+                &:hover {
+                    color: initial;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .username {
+                margin-right: 20px;
+                user-select: none;
+            }
+        }
+
+        .route_viewer {
+            width: calc(100% - 20px);
+            height: 100%;
+            margin: 10px;
+            background-color: #fefefe;
+        }
+    }
+
+    .hide_menu {
+        min-width: 0px !important;
+        width: 0% !important;
+    }
+
+    .side_bar {
+        height: 100vh;
+        width: 250px;
+        min-width: 250px;
+        max-width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.2s;
+        background-color: #fefefe;
+
+        .side_bar-logo {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 50px;
+            background-color: $main;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fefefe;
+            user-select: none;
+            p {
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: 40px;
+                font-weight: 300;
+                i {
+                    font-size: 30px;
+                }
+            }
+        }
+
+        ul {
+            width: 100%;
+            li {
+                list-style: none;
+                margin-bottom: 2px;
+                width: 100%;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    color: initial;
+                    text-decoration: none;
+                    font-size: 20px;
+                    padding: 10px;
+                    background-color: #eee;
+                    transition: 0.2s;
+
+                    &:hover {
+                        background-color: $secondary;
+                        color: #fefefe;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                .disabled {
+                    pointer-events: none;
+                    color: #999;
+                }
+            }
+        }
+    }
+
+    .modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+
+        .modal_popup {
+            min-width: 500px;
+            background-color: #fefefe;
+            min-height: 150px;
+            box-shadow: 0px 1px 4px 1px #333;
+            animation: fadein 0.4s 1;
+
+            .modal_popup_title {
+                width: 100%;
+                min-height: 30px;
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                font-size: 20px;
+                background-color: $main;
+                color: #fefefe;
+            }
+
+            .modal_popup_msg {
+                min-height: 60px;
+                padding: 15px;
+                display: flex;
+                align-items: center;
+                font-size: 18px;
+            }
+
+            .modal_popup_btns {
+                min-height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding: 5px;
+                background-color: #ccc;
+
+                button {
+                    margin: 2px;
+                }
+
+                .modal_popup_btns_secondary {
+                    background-color: #fefefe;
+                    color: $main;
+                    border: 3px solid $main;
+                    padding: 7px 17px;
+                    font-weight: bold;
+
+                    &:hover {
+                        border: 3px solid $secondary;
+                        color: $secondary;
+                    }
+                }
+
+                .modal_popup_btns_tertiary {
+                    background-color: #fefefe;
+                    background-color: transparent !important;
+                    color: $main;
+                    border: 3px solid transparent;
+                    padding: 7px 17px;
+                    font-weight: bold;
+
+                    &:hover {
+                        color: $secondary;
+                    }
+                }
+            }
+        }
+
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    }
+
+    button {
+        background-color: $main;
+        border: none;
+        border-radius: 4px;
+        color: #fefefe;
+        padding: 10px 20px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+            background-color: $secondary;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+    }
+
+    input {
+        border-radius: 4px;
+        border: 2px solid #ccc;
+        padding: 5px;
+        font-size: 14px;
+        transition: 0.2s;
+        margin-right: 2px;
+
+        &:focus {
+            outline: none;
+            border-color: $secondary;
+        }
+    }
+
+    select {
+        -webkit-appearance: none;
+        border-radius: 4px;
+        border: 2px solid #ccc;
+        padding: 5px;
+        font-size: 14px;
+        transition: 0.2s;
+        margin-right: 2px;
+
+        &:focus {
+            outline: none;
+            border-color: $secondary;
+        }
+
+        &:after {
+            content: '&lt;&gt;';
+            display: flex;
+            position: absolute;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            color: black;
+        }
+    }
+
+    textarea {
+        border-radius: 4px;
+        border: 2px solid #ccc;
+        padding: 5px;
+        font-size: 14px;
+        transition: 0.2s;
+        margin-right: 2px;
+        resize: vertical;
+
+        &:focus {
+            outline: none;
+            border-color: $secondary;
+        }
+    }
+}

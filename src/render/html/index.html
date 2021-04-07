@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../resources/css/all.css" />
+        <link rel="stylesheet" href="../style/main.css" />
+        <link rel="stylesheet" href="../style/invoices.css" />
+        <link rel="stylesheet" href="../style/invoice.css" />
+        <link rel="stylesheet" href="../style/clients.css" />
+        <link rel="stylesheet" href="../style/client.css" />
+        <link rel="stylesheet" href="../style/settings.css" />
+        <title>Finax</title>
+    </head>
+    <body>
+        <div id="app">
+            <side-bar :showmenu="showMenu" :isdisabled="!isSettingsConfigured"></side-bar>
+            <div class="main_view">
+                <div class="top_bar">
+                    <button @click="showMenu = !showMenu" class="menu_toggler">
+                        <i class="fas" :class="[showMenu ? 'fa-outdent':'fa-indent']"></i>
+                    </button>
+                    <div class="username">
+                        <h3>{{organizationName}}</h3>
+                    </div>
+                </div>
+                <router-view class="route_viewer" @settingsupdated="updateSettings" :settings="settings"></router-view>
+            </div>
+        </div>
+
+        <script type="text/x-template" id="side-bar-template">
+            <div class="side_bar" :class="{'hide_menu': !showmenu}">
+                <div class="side_bar-logo">
+                    <p>Fina<i class="fas fa-percentage"></i></p>
+                </div>
+                <ul>
+                    <li>
+                        <router-link :class="{disabled: isdisabled}"  to="/invoices"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Invoices</router-link>
+                    </li>
+                    <li>
+                        <router-link :class="{disabled: isdisabled}" to="/clients"><i class="fas fa-user-friends"></i>&nbsp;Clients</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/settings"><i class="fas fa-cogs"></i>&nbsp;Settings</router-link>
+                    </li>
+                </ul>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="invoices-template">
+            <div class="invoices_container">
+                <h1><i class="fas fa-file-invoice-dollar"></i>&nbsp;Invoices</h1>
+                <div class="invoices_container-utils">
+                    <button @click="createNewInvoice">New Invoice</button>
+                    <div class="search_field">
+                        <input @keyup.enter="search" type="text" name="search" id="search_field" placeholder="input search text" v-model="searchText">
+                        <button @click="search" class="search_button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <table>
+                    <tr class="header">
+                        <th>
+                            Number
+                        </th>
+                        <th>
+                            Client
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Due Date
+                        </th>
+                        <th>
+                            Sum
+                        </th>
+                        <th>
+                            State
+                        </th>
+                    </tr>
+                    <tr v-for="(invoice, index) in (filteredInvoicesList || invoices)" :key="index">
+                        <td>
+                            <router-link :to="{ name: 'invoice', params: { id: invoice.number } }"><i class="fas fa-file-invoice-dollar"></i>&nbsp;{{invoice.number}}</router-link>
+                        </td>
+                        <td>
+                            {{invoice.client.legalName}}
+                        </td>
+                        <td>
+                            {{invoice.date}}
+                        </td>
+                        <td>
+                            {{invoice.dueDate}}
+                        </td>
+                        <td>
+                            {{sum(invoice)}}
+                        </td>
+                        <td>
+                            <p class="invoice_state" :class="invoice.state">{{invoice.state}}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="invoice-template">
+            <div class="invoice_container">
+                <div class="invoice_details">
+                    <div>
+                        <label for="client">
+                            Client <br />
+                            <select name="client" v-model="invoice.client">
+                                <option>-Select Client-</option>
+                                <option selected v-for="(client, index) in clients" :value="client" :key="index">{{client.legalName}}</option>
+                            </select>
+                        </label>
+                        <label for="state">
+                            State <br />
+                            <select name="state" v-model="invoice.state">
+                                <option :value="null">-Select State-</option>
+                                <option v-for="(state, index) in states" :value="state" :key="index">{{state.toUpperCase()}}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="invoicenr">
+                            Invoice number <br />
+                            <input type="text" v-model="invoice.number" disabled>
+                        </label>
+                        <label for="currency">
+                            Currency <br />
+                            <select name="currency" v-model="invoice.currency">
+                                <option>-Select Currency-</option>
+                                <option v-for="(currency, index) in currency" :value="currency" :key="index">{{currency.symbol}} {{currency.name}}</option>
+                            </select>
+                        </label>
+                        <label for="date">
+                            Date <br />
+                            <input type="date" v-model="invoice.date">
+                        </label>
+                        <label for="duedate">
+                            Due Date <br />
+                            <input type="date" v-model="invoice.dueDate">
+                        </label>
+                    </div>
+                </div>
+                <div class="invoice_rows">
+                    <table>
+                        <tr class="header">
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Subtotal
+                            </th>
+                            <th>
+                                Tax Rate
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                        <tr v-for="(row, index) in rows" :key="index">
+                            <td>
+                                <textarea name="description" cols="30" rows="10" v-model="row.description" ></textarea>
+                            </td>
+                            <td>
+                                <input type="number" name="quantity" min="1" v-model="row.quantity">
+                            </td>
+                            <td>
+                                <input type="number" name="quantity" v-model="row.price">
+                            </td>
+                            <td>
+                                <span>{{row.quantity * row.price}}</span>
+                            </td>
+                            <td>
+                                <input type="number" name="tax-rate" min="0" v-model="row.taxRate">%
+                            </td>
+                            <td>
+                                <i class="fas fa-trash-alt" @click="invoice.rows.splice(index, 1)"></i>
+                            </td>
+                        </tr>
+                    </table>
+                    <button @click="addRow">Add row</button>
+                </div>
+                <div class="invoice_finalize">
+                    <div class="invoice_finalize-note">
+                        <label for="note">
+                            Customer Note <br />
+                            <textarea name="note" cols="30" rows="10" v-model="invoice.customerNote" maxlength="150">{{invoice.customerNote}}</textarea>
+                        </label>
+                    </div>
+                    <div class="invoice_finalize-totals">
+                        <table>
+                            <tr>
+                                <th>
+                                    <h3>Subtotal</h3>
+                                </th>
+                                <td>
+                                    <h3>{{subTotal + ' ' + (invoice.currency.symbol || '')}}</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p>Tax</p>
+                                </th>
+                                <td>
+                                    <p>{{(tax || 0) + ' ' + (invoice.currency.symbol || '')}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <h2>Total</h2>
+                                </th>
+                                <td>
+                                    <h2>{{(total || 0) + ' ' + (invoice.currency.symbol || '')}}</h2>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="bottom_bar">
+                    <button @click="printPDF" class="save_to_pdf"><i class="fas fa-file-pdf"></i>&nbsp;PDF</button>
+                    <button title="shortcut: ctrl+s" :disabled="hasInvoiceNumber || !hasChanged" @click="save">Save Invoice</button>
+                    <button :disabled="hasInvoiceNumber" @click="deleteInvoice" class="delete_invoice"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="clients-template">
+            <div class="clients_container">
+                <h1><i class="fas fa-user-friends"></i>&nbsp;Clients</h1>
+                <div class="clients_container-utils">
+                    <button @click="createNewClient">New Client</button>
+                    <div class="search_field">
+                        <input @keyup.enter="search" type="text" name="search" id="search_field" placeholder="input search text" v-model="searchText">
+                        <button @click="search" class="search_button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <table>
+                    <tr class="header">
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Legal name
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            E-Mail
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                    </tr>
+                    <tr v-for="(client, index) in (filteredClientsList || clients)" :key="index">
+                        <td>
+                            <router-link :to="{ name: 'client', params: { id: client._id } }"><i class="fas fa-user"></i>&nbsp;{{client._id}}</router-link>
+                        </td>
+                        <td>
+                            {{client.legalName}}
+                        </td>
+                        <td>
+                            {{client.name}}
+                        </td>
+                        <td>
+                            {{client.email}}
+                        </td>
+                        <td>
+                            {{client.phone}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="client-template">
+            <div class="client_container">
+                <h2><i class="fas fa-user-friends"></i>&nbsp;{{client._id}}</h2>
+                <br />
+                <div class="client_details">
+                    <label>
+                        Legal Name * <br />
+                        <input type="text" v-model="client.legalName">
+                    </label>
+                    <label for="name">
+                        Name * <br />
+                        <input type="text" v-model="client.name">
+                    </label>
+                    <label for="Address">
+                        Address * <br />
+                        <input type="text" v-model="client.address">
+                    </label>
+                    <label for="postalCode">
+                        Postal Code * <br />
+                        <input type="number" v-model="client.postalCode">
+                    </label>
+                    <label for="city">
+                         City * <br />
+                        <input type="text" v-model="client.city">
+                    </label>
+                    <label for="email">
+                        Email <br />
+                       <input type="text" v-model="client.email">
+                    </label>
+                    <label for="phone">
+                        Phone <br />
+                        <input type="tel" v-model="client.phone">
+                    </label>
+                </div>
+                <div class="bottom_bar">
+                    <button @click="deleteClient" class="delete_client"><i class="fas fa-trash-alt"></i></button>
+                    <button title="shortcut: ctrl+s" :disabled="!isComplete || !hasChanged" @click="save">Save Client</button>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="settings-template">
+            <div class="settings_container">
+                <div class="warn_message" v-if="!isComplete">
+                    <p>You need to update your Organization settings to proceed.</p>
+                </div>
+                <h1><i class="fas fa-cogs"></i>&nbsp;Settings</h1>
+                <div class="all_settings">
+                    <div class="settings_menu">
+                        <div class="settings_header" @click="showGeneralSettings = !showGeneralSettings">
+                            <h2>General</h2>
+                            <div class="menu_toggler"><i class="fas fa-sort-down" :class="[showGeneralSettings ? 'menu_toggler_rotate' : '']"></i></div>
+                        </div>
+                        <div class="settings general" :class="{'hide_settings': !showGeneralSettings}">
+                            <label for="note">
+                                Default Customer Note <br />
+                                <textarea name="note" cols="30" rows="10" v-model="generalSettings.customerNote" maxlength="150">{{generalSettings.customerNote}}</textarea>
+                            </label>
+                            <button @click="saveGeneralSettings">Save</button>
+                        </div>
+                    </div>
+                    <div class="settings_menu">
+                        <div class="settings_header" @click="showOrganizationSettings = !showOrganizationSettings">
+                            <h2>Organization</h2>
+                            <div class="menu_toggler"><i class="fas fa-sort-down" :class="[showOrganizationSettings ? 'menu_toggler_rotate' : '']"></i></div>
+                        </div>
+                        <div class="settings organization" :class="{'hide_settings': !showOrganizationSettings}">
+                            <label>
+                                Legal Name * <br />
+                                <input type="text" v-model="organizationSettings.legalName">
+                            </label>
+                            <label for="name">
+                                Name * <br />
+                                <input type="text" v-model="organizationSettings.name">
+                            </label>
+                            <label for="Address">
+                                Address * <br />
+                                <input type="text" v-model="organizationSettings.address">
+                            </label>
+                            <label for="postalCode">
+                                Postal Code * <br />
+                                <input type="number" v-model="organizationSettings.postalCode">
+                            </label>
+                            <label for="city">
+                                 City * <br />
+                                <input type="text" v-model="organizationSettings.city">
+                            </label>
+                            <label for="bank">
+                                Bank * <br />
+                               <input type="text" v-model="organizationSettings.bank">
+                            </label>
+                            <label for="accountType">
+                                Account Type * <br />
+                               <input type="text" v-model="organizationSettings.accountType">
+                            </label>
+                            <label for="accountNumber">
+                                Account Number * <br />
+                            <input type="text" v-model="organizationSettings.accountNumber">
+                            </label>
+                            <label for="email">
+                                Email <br />
+                               <input type="text" v-model="organizationSettings.email">
+                            </label>
+                            <label for="phone">
+                                Phone <br />
+                                <input type="tel" v-model="organizationSettings.phone">
+                            </label>
+                            <label for="logo">
+                                <span v-if="!organizationSettings.logo">UPLOAD LOGO</span>
+                                <img :src="organizationSettings.logo" alt="logo" v-if="organizationSettings.logo" width="100px">
+                                <input type="file" id="logo" name="logo" accept="image/png, image/jpeg" @change="processLogoImage">
+                            </label>
+                            <button :disabled="(!isComplete || !organizationSettingsUpdated)" @click="saveOrganizationSettings">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="pdf-template"></script>
+
+        <script src="../js/vue.js"></script>
+        <script src="../js/vue-router.js"></script>
+        <script src="../js/invoices.js" defer></script>
+        <script src="../js/clients.js" defer></script>
+        <script src="../js/settings.js" defer></script>
+        <script src="../js/index.js" defer></script>
+    </body>
+</html>

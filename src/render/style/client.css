@@ -1,0 +1,50 @@
+.client_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 40px;
+  overflow-y: scroll;
+}
+
+.client_container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.client_container .client_details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.client_container .client_details label {
+  margin: 10px 0px;
+}
+
+.client_container .client_details label input {
+  width: 50%;
+  font-size: 25px !important;
+}
+
+.client_container .bottom_bar {
+  height: 70px;
+  position: fixed;
+  bottom: 0px;
+}
+
+.client_container .bottom_bar .delete_client {
+  background-color: #e05555 !important;
+}
+
+.client_container .bottom_bar .delete_client:hover {
+  background-color: #ff8a8a !important;
+}
+/*# sourceMappingURL=client.css.map */
